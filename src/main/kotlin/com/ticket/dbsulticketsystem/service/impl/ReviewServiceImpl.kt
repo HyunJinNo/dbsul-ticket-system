@@ -26,6 +26,6 @@ class ReviewServiceImpl(
     }
 
     override fun getReview(id: Int): Review {
-        return reviewRepository.findById(id).orElseThrow()
+        return reviewRepository.findById(id).orElseThrow { NoSuchElementException() }
     }
 }

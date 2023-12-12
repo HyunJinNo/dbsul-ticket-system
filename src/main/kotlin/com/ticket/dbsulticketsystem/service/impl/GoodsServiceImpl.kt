@@ -69,7 +69,7 @@ class GoodsServiceImpl(
     )
 
     override fun getGoods(goodsId: Int): GoodsInfo.GoodsDto {
-        val goods = goodsRepository.findById(goodsId).orElseThrow()
+        val goods = goodsRepository.findById(goodsId).orElseThrow { NoSuchElementException() }
         val sequence = sequenceRepository.findAllByGoodsId(goodsId)
         return makeGoodsDto(goods, sequence)
     }

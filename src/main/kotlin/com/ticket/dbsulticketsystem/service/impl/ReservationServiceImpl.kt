@@ -31,8 +31,8 @@ class ReservationServiceImpl(
                 createdAt = sequence.createdAt,
                 updatedAt = sequence.updatedAt,
             )
-            val goods = goodsRepository.findById(sequence.goodsId).orElseThrow()
-            val seat = seatRepository.findById(it.seatId).orElseThrow()
+            val goods = goodsRepository.findById(sequence.goodsId).orElseThrow { NoSuchElementException() }
+            val seat = seatRepository.findById(it.seatId).orElseThrow { NoSuchElementException() }
             ReservationInfo.ReservationDto(
                 id = it.id,
                 userId = it.userId,
@@ -52,7 +52,7 @@ class ReservationServiceImpl(
     }
 
     override fun getReservation(id: Int): ReservationInfo.ReservationDto {
-        val reservation = reservationRepository.findById(id).orElseThrow()
+        val reservation = reservationRepository.findById(id).orElseThrow { NoSuchElementException() }
         val sequence = sequenceRepository.findById(reservation.sequenceId).get()
         val sequenceDto = SequenceDto(
             id = sequence.id,
@@ -62,8 +62,8 @@ class ReservationServiceImpl(
             createdAt = sequence.createdAt,
             updatedAt = sequence.updatedAt,
         )
-        val goods = goodsRepository.findById(sequence.goodsId).orElseThrow()
-        val seat = seatRepository.findById(reservation.seatId).orElseThrow()
+        val goods = goodsRepository.findById(sequence.goodsId).orElseThrow { NoSuchElementException() }
+        val seat = seatRepository.findById(reservation.seatId).orElseThrow { NoSuchElementException() }
         return ReservationInfo.ReservationDto(
             id = reservation.id,
             userId = reservation.userId,
